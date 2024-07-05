@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrolling Sections with Zoom Effect and Disappearing Arrow</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        .title-container {
+            font-family: "Satisfy", cursive;
+            font-weight: 400;
+            font-style: normal;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 3vh;
+            left: 0;
+            width: 100%;
+            height: 10%;
+            font-size: 4rem;
+        }
+        .section {
+            height: 100vh;
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        #imageSection {
+            background-color: #f2f2f2;
+            position: sticky;
+            top: 0;
+            overflow: hidden;
+        }
+        #zoomImage {
+            max-width: 70vh;
+            max-height: 100%;
+            transition: transform 0.1s ease;
+        }
+        .arrow-container {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        .arrow {
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid #333;
+        }
+        #contentSection {
+            background-color: #e0e0e0;
+            padding: 20px;
+        }
+        .content {
+            display: flex;
+            gap: 20px;
+        }
+        .map-container {
+            overflow: hidden;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <section id="imageSection" class="section">
+        <div class="title-container">
+            Snir & Michali 
+        </div>
+        <img src="image.png" alt="Placeholder Image" id="zoomImage">
+
+        <div class="arrow-container" id="scrollArrow">
+            <div class="arrow"></div>
+        </div>
+    </section>
+    
+    <section id="imageSection" class="section">
+        <div class="title-container" style="color: #333;">
+            Details
+        </div>
+        <div class="content" id="contentSection">
+            <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d53863.59141283628!2d34.967554!3d32.459999!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d0e10d0cf8395%3A0xc0dbbd2a81558ae7!2sAgadat%20Deshe!5e0!3m2!1sen!2sus!4v1720199887382!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const imageSection = document.getElementById('imageSection');
+        const zoomImage = document.getElementById('zoomImage');
+        const scrollArrow = document.getElementById('scrollArrow');
+        const contentSection = document.getElementById('contentSection');
+
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercentage = scrollPosition / maxScroll;
+            const zoomLevel = 1 + scrollPercentage;
+            zoomImage.style.transform = `scale(${zoomLevel})`;
+
+            // Hide arrow after scrolling 20% of the viewport height
+            if (scrollPosition > window.innerHeight * 0.05) {
+                scrollArrow.style.opacity = '0';
+                scrollArrow.style.pointerEvents = 'none';
+            } else {
+                scrollArrow.style.opacity = '1';
+                scrollArrow.style.pointerEvents = 'auto';
+            }
+        });
+
+        scrollArrow.addEventListener('click', () => {
+            contentSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
