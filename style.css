@@ -53,9 +53,8 @@ h3 {
 }
 
 .card {
-  height: calc(8 * var(--m));
-  width: calc(12 * var(--m));
-  background: linear-gradient(120deg, #ff8064, #725bdc);
+  height: 75%;
+  width: 75%;
   color: black;
   border-radius: calc(0.5 * var(--m));
 
@@ -64,16 +63,17 @@ h3 {
   justify-content: center;
   align-items: center;
   gap: var(--m);
-
+  object-fit: cover;
   position: fixed;
-  margin: calc(2 * var(--m)) calc(5 * var(--m)) calc(5 * var(--m)) calc(5 * var(--m));
+  margin: 5%;
+  /* margin: calc(2 * var(--m)) calc(5 * var(--m)) calc(5 * var(--m)) calc(5 * var(--m)); */
   transform-origin: center center; /* Add this line */
   transition: transform 0.1s ease-out; /* Add this line for smooth scaling */
 }
 
 .card-img {
-  height: calc(12 * var(--m));
-  width: calc(12 * var(--m));
+  height: 100%;
+  width: 100%;
   object-fit: cover;
   border-radius: calc(0.5 * var(--m));
   transition: transform 0.1s ease-out; /* Add this line for smooth scaling */
@@ -151,9 +151,10 @@ footer::before {
 }
 
 .col {
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
   padding: calc(0.3 * var(--m)) calc(0.8 * var(--m));
   width: 28%;
 }
